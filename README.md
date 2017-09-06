@@ -2,12 +2,9 @@
 
 This is a repository for the assignments given in the Business Intelligence elective of the second semester of the top-up bachelor program in Software Development at CPHBusiness.
 
-## Assignment 1
-
 # Assignment 1: Environment Setup and Introduction to Python
 
-    1. **List the all files that this program generates.**
-
+1. **List the all files that this program generates.**
 
 The program generates two files: *price_list.csv* and *prices.png*.
 
