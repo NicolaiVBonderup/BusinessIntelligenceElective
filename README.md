@@ -94,7 +94,7 @@ The average price of every property on the price list, calculated by the `comput
 4. **Describe in natural language and line-by-line what the program is doing. Describe also for each line what the Python code expresses.**
 
 
-Pretty tempted to be more descriptive, but as far as I understand, 'natural language' means something non-technical, so I've tried to dumb it down as much as possible.
+As far as we understand, 'natural language' means something non-technical, so we've tried to dumb it down as much as possible.
 
 ```
 # These are imports, similar to imports in other languages, bringing in libraries for use in the program.
