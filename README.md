@@ -22,8 +22,6 @@ The program also generates a scatter chart, drawing a single point for each poin
 in a series of `price_per_sqm` without connecting them. In essence, it shows the deviation
 of square meter prices across different housing prices.
 
-## Explanation of code
-
 # Files:
 
 ## price_list.txt
