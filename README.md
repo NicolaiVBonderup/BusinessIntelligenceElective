@@ -2,6 +2,8 @@
 
 This is a repository for the assignments given in the Business Intelligence elective of the second semester of the top-up bachelor program in Software Development at CPHBusiness.
 
+Assignment hand-ins displayed on this repository are group hand-ins for the group Disgusting Software, consisting of Emil Rosenius Pedersen and Nicolai Vikkelsø Bonderup.
+
 # Assignment 1: Environment Setup and Introduction to Python
 
 1. **List the all files that this program generates.**
