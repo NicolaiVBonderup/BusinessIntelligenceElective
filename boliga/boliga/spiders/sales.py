@@ -4,23 +4,32 @@ import os
 import platform
 import csv
 import collections
-
+from tqdm import tqdm
 
 class SalesSpider(scrapy.Spider):
     name = 'sales'
     allowed_domains = ['138.197.184.35']
     start_urls = ['http://138.197.184.35/boliga/']
     base_url = 'http://138.197.184.35/boliga/'
-
+    
+    
     def parse(self, response):
 
         pages_to_crawl = response.xpath('//a/@href').extract()
-
+        page_amount = len(pages_to_crawl)
+        
+        # Instantiates a progress bar in the CLI through tqdm
+        self.pbar = tqdm(total=page_amount)
+        self.pbar.clear()
+        
         for page in pages_to_crawl:
             yield scrapy.Request(self.base_url + page, callback=self.parse_page)
+            
+            
         pass
         
 
+        
     def parse_page(self, response):
 
         data_rows = []
@@ -73,5 +82,7 @@ class SalesSpider(scrapy.Spider):
             output_writer = csv.writer(f)
             for row in data_rows:
                 output_writer.writerow(row)
-        
-        
+                
+        # Updates the progress bar
+        self.pbar.update()
+            
