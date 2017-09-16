@@ -1,6 +1,6 @@
 # Business Intelligence Elective
 
-This is a repository for the assignments given in the Business Intelligence elective of the second semester of the top-up bachelor program in Software Development at CPHBusiness.
+This is a repository for the assignments given in the Business Intelligence elective of the second semester of the top-up bachelor program in Software Development at CPH Business Academy.
 
 Assignment hand-ins displayed on this repository are group hand-ins for the group Disgusting Software, consisting of Emil Rosenius Pedersen, Theis Rye and Nicolai Vikkelsø Bonderup.
 
@@ -14,14 +14,20 @@ Running the scraper script requires the installation of [Scrapy](https://scrapy.
 
 This will run the scraper, creating a .CSV file in the working directory with the results. The `--nolog` modifier can be left off in order to see realtime logs from the scraper, but it will flood the console with a log from Scrapy for every site opened.
 
+We have also added custom arguments to the script, particularly the argument `zip_split`. Being that we are running through the Scrapy framework, we could not use the standard `argparse` module, but instead used the argument `-a` built into the Scrapy framework to introduce custom arguments.
+
+`zip_split`takes either a 'yes' or 'no', alternatively 'y' or 'n', which determines if the scraped data should be split into CSV files separated by zipcode, or kept in one big CSV file.
+
 
 #### How many sales records are there per zip code area? How many in total? 
 
-In order to produce this data, we ran our Python script with the option to generate separate CSV files for every zipcode. Thereafter, we ran the follow bash command:
+In order to produce this data, we ran our Python script with the option to generate separate CSV files for every zipcode. Thereafter, we ran the following bash command:
 
 `find . -name '*.csv' | xargs wc -l >> sales_results.txt`
 
-The full results are available in the file [sales_results.txt](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/sales_results.txt). The full linecount of every sales record is *insert when finished*
+This command finds every file ending with the extension `.csv`, and prints the linecount of each file into the file 'sales_results.txt'.
+
+The full results are available in the file [sales_results.txt](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/sales_results.txt). The full linecount of every sales record is *1277014*.
 
 
 #### For which zip code area do you have the most sales records?
@@ -34,15 +40,15 @@ We `find` a file in the working directory, matching it by its `-name`, which is 
 
 The result of this command is:
 
-`13722 ./8700.csv`
+`17405 ./2300.csv`
 
-As such, we know that 8700.csv is the largest file, containing 13,722 records.
+As such, we know that 8700.csv is the largest file, containing 13,722 records, meaning that apparently people **really** want to sell their homes and move away from København S. We can now use `du` to calculate the disk usage of a file:
 
 `du -k 8700.csv`
 
 This will give us the result:
 
-`1124 8700.csv`
+`1700 8700.csv`
 
 This means that the file contains 1124Kb of data.
 
@@ -54,11 +60,8 @@ For this, we repeat the process of the last assignment, but with a small tweak t
 
 The result of this command is;
 
-``
+`1 ./1061.csv`
 
 and the total size of this file is:
 
-``
-
-
-
+`1 1061.csv`
