@@ -6,34 +6,39 @@ Assignment hand-ins displayed on this repository are group hand-ins for the grou
 
 # Assignment 2: Data Collection
 
-The webscraper we have written for scraping the data off of the Boliga mirror was written using the Scrapy framework, instead of Beautiful Soup. The contents of the [boliga](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga) folder contain all of the necessary project and setup files for Scrapy to function, along with the Python script file [sales.py](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/boliga/boliga/spiders/sales.py) in the folder [spiders](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga/boliga/spiders), which contains our webscraper script.
+The webscraper we have written for scraping the data off of the Boliga mirror was written using the Scrapy framework, instead of Beautiful Soup. The contents of the [boliga folder](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga) contain all of the necessary project and setup files for Scrapy to function, along with the Python script file [sales.py](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/boliga/boliga/spiders/sales.py) in the folder [spiders](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga/boliga/spiders), which contains our webscraper script.
 
-### Dependencies
+## Dependencies
 Running the scraper script requires the installation of the following dependencies: 
 - [Scrapy](https://scrapy.org/)
 - [Microsoft Visual C++ Build Library](http://landinghub.visualstudio.com/visual-cpp-build-tools)
 - [tqdm](https://github.com/tqdm/tqdm)
 - [pywin32](https://sourceforge.net/projects/pywin32/). 
 
-### How to run
-Once the required dependencies are installed, navigate to anywhere inside the boliga project, and execute the following command:
+## How to run
+To run the scraper, creating a .CSV file in the working directory with the results, execute the following command anywhere inside the [boliga folder](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga):
 
-`scrapy runspider sales --nolog`
-
-This will run the scraper, creating a .CSV file in the working directory with the results. 
+```bash
+$ scrapy runspider sales --nolog
+```
 
 *The* `--nolog` *modifier can be left off in order to see realtime logs from the scraper, but it will flood the console with a log from Scrapy for every site opened.*
 
-We have also added custom arguments to the script, particularly the argument `zip_split`. Being that we are running through the Scrapy framework, we could not use the standard `argparse` module, but instead used the argument `-a` built into the Scrapy framework to introduce custom arguments.
+### Arguments
+We have also added custom arguments to the script. Being that we are running through the Scrapy framework, we could not use the standard `argparse` module, but instead used the argument `-a` built into the Scrapy framework to introduce custom arguments.
 
-`zip_split`takes either a 'yes' or 'no', alternatively 'y' or 'n', which determines if the scraped data should be split into CSV files separated by zipcode, or kept in one big CSV file.
+#### zip_split
+`zip_split` takes either a 'yes' or 'no', alternatively 'y' or 'n', which determines if the scraped data should be split into CSV files separated by zipcode, or kept in one big CSV file.
 
+## Assignments
 
 #### How many sales records are there per zip code area? How many in total? 
 
 In order to produce this data, we ran our Python script with the option to generate separate CSV files for every zipcode. Thereafter, we ran the following bash command:
 
-`find . -name '*.csv' | xargs wc -l >> sales_results.txt`
+```bash
+$ find . -name '*.csv' | xargs wc -l >> sales_results.txt
+```
 
 This command finds every file ending with the extension `.csv`, and prints the linecount of each file into the file 'sales_results.txt'.
 
@@ -44,7 +49,9 @@ The full results are available in the file [sales_results.txt](https://github.co
 
 For this, we use the same zipcode-separated CSV files, and execute the following bash commands to sort all files by word count, and pick out the file at the top:
 
-`find . -name "*.csv" -type f | xargs wc -l | sort -rn | grep -v ' total$' | head -1`
+```bash
+$ find . -name "*.csv" -type f | xargs wc -l | sort -rn | grep -v ' total$' | head -1
+```
 
 We `find` a file in the working directory, matching it by its `-name`, which is a regular file, so we add `-type f`. We then use `xargs` to execute commands, such as `wc -l` to count the lines of each document. We then `sort -rn` to reverse and numerically sort the files by their linecount, `grep -v ' total$'` to remove the 'total' line that `wc` generates, and `head -1` to only display the first result at the top of the list.
 
