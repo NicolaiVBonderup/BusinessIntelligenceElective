@@ -13,3 +13,19 @@ Running the scraper script requires the installation of [Scrapy](https://scrapy.
 `scrapy runspider sales.py --nolog`
 
 This will run the scraper, creating a .CSV file in the working directory with the results. The `--nolog` modifier can be left off in order to see realtime logs from the scraper, but it will flood the console with a log from Scrapy for every site opened.
+
+
+#### How many sales records are there per zip code area? How many in total? 
+
+In order to produce this data, we ran our Python script with the option to generate separate CSV files for every zipcode. Thereafter, we ran the follow bash command:
+
+`find . -name '*.csv' | xargs wc -l`
+
+The full results are available in the file [sales_results.md](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/sales_results.md). The full linecount of every sales record is *insert when finished*
+
+
+#### For which zip code area do you have the most sales records?
+
+
+
+#### For which zip code area do you have the fewest sales records?
