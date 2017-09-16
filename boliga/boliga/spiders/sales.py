@@ -20,30 +20,48 @@ class SalesSpider(scrapy.Spider):
         # Argument to determine if we're making one big CSV file, or CSV files separated by zip code.
         self.zip_split = zip_split
         
+        yes_types = ['y','Y','yes','Yes','YEs','YES']
+        no_types = ['n','N','no','No','NO']
+        
         # Checks the operating system in order to determine newline rules.
         if platform.system() == 'Windows':
             self.newline = ''
         else:
             self.newline = None
+            
         
         if (zip_split is ''):
-            print("zip_split argument not applied, saving data into one file.")
-            self.zip_split = 'n'
-        elif (zip_split is 'y'):
-            print("Saving data into zipcode-separated CSV files. This will take a while.")
-            # Using a dict as a lookup table for zipcodes
-            # Dict lookup is O(1), list lookup is O(n)
-            self.zip_dict = {'key':'value'}
-            self.setup_file_split_zips()
-        elif (zip_split is 'n'):
-            print("Saving data into single CSV file.")
-            self.setup_file()
+            #print("zip_split argument not applied, saving data into one file.")
+            print("The script can save the data into zipcode-separated files, or a single file.")
+            decision = input("Would you like to split the data into several CSV files?: ").lower()
+            if decision in no_types:
+                self.zip_split = 'n'
+                self.decision_save_to_single_file()
+            elif decision in yes_types:
+                self.zip_split = 'y'
+                self.decision_save_to_separate_files()
+            else:
+                print("Invalid zip_split parameter.")
+                quit()
+        elif zip_split in yes_types:
+            self.decision_save_to_separate_files()
+        elif zip_split in no_types:
+            self.decision_save_to_single_file()
         else:
             print("Invalid zip_split parameter.")
             quit()
             
             
-        
+    def decision_save_to_single_file(self):
+        print("Saving data into single CSV file.")
+        self.setup_file()
+    
+    def decision_save_to_separate_files(self):
+        print("Saving data into zipcode-separated CSV files.")
+        # Using a dict as a lookup table for zipcodes
+        # Dict lookup is O(1), list lookup is O(n)
+        self.zip_dict = {'key':'value'}
+        self.setup_file_split_zips()
     
     def start_requests(self):
             
