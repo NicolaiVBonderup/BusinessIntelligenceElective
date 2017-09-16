@@ -79,6 +79,4 @@ The result of this command is;
 
 `1 ./1061.csv`
 
-and the total size of this file is:
-
-`1 1061.csv`
+This means that the file contains ~1KB of data.
