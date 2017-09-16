@@ -32,7 +32,7 @@ The full results are available in the file [sales_results.txt](https://github.co
 
 #### For which zip code area do you have the most sales records?
 
-For this, we use the same zipcode-separated CSV files, and execute the follow bash commands to sort all files by word count, and pick out the file at the top:
+For this, we use the same zipcode-separated CSV files, and execute the following bash commands to sort all files by word count, and pick out the file at the top:
 
 `find . -name "*.csv" -type f | xargs wc -l | sort -rn | grep -v ' total$' | head -1`
 
