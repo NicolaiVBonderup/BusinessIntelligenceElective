@@ -20,7 +20,7 @@ class SalesSpider(scrapy.Spider):
         # Argument to determine if we're making one big CSV file, or CSV files separated by zip code.
         self.zip_split = zip_split
         
-        yes_types = ['y','Y','yes','Yes','YEs','YES']
+        yes_types = ['y','Y','yes','Yes','YEs','yES','YES']
         no_types = ['n','N','no','No','NO']
         
         # Checks the operating system in order to determine newline rules.
