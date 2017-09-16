@@ -42,15 +42,15 @@ The result of this command is:
 
 `17405 ./2300.csv`
 
-As such, we know that 8700.csv is the largest file, containing 13,722 records, meaning that apparently people **really** want to sell their homes and move away from København S. We can now use `du` to calculate the disk usage of a file:
+As such, we know that 2300.csv is the largest file, containing 17,405 records, meaning that apparently people **really** want to sell their homes and move away from København S. We can now use `du` to calculate the disk usage of a file:
 
-`du -k 8700.csv`
+`du -k 2300.csv`
 
 This will give us the result:
 
-`1700 8700.csv`
+`1700 2300.csv`
 
-This means that the file contains 1124Kb of data.
+This means that the file contains 1700KB of data.
 
 #### For which zip code area do you have the fewest sales records?
 
