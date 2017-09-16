@@ -61,7 +61,9 @@ The result of this command is:
 
 As such, we know that 2300.csv is the largest file, containing 17,405 records, meaning that apparently people **really** want to sell their homes and move away from København S. We can now use `du` to calculate the disk usage of a file:
 
-`du -k 2300.csv`
+```bash
+$ du -k 2300.csv
+```
 
 This will give us the result:
 
@@ -73,7 +75,9 @@ This means that the file contains 1700KB of data.
 
 For this, we repeat the process of the last assignment, but with a small tweak to the script, replacing `head` with `tail` so that we get the last result in the sorted list.
 
-`find . -name "*.csv" -type f | xargs wc -l | sort -rn | grep -v ' total$' | tail -1`
+```bash
+$ find . -name "*.csv" -type f | xargs wc -l | sort -rn | grep -v ' total$' | tail -1
+```
 
 The result of this command is;
 
