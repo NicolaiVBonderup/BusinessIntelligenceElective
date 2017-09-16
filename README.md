@@ -32,7 +32,7 @@ We have also added custom arguments to the script. Being that we are running thr
 
 ## Assignments
 
-#### How many sales records are there per zip code area? How many in total? 
+### How many sales records are there per zip code area? How many in total? 
 
 In order to produce this data, we ran our Python script with the option to generate separate CSV files for every zipcode. Thereafter, we ran the following bash command:
 
@@ -45,7 +45,7 @@ This command finds every file ending with the extension `.csv`, and prints the l
 The full results are available in the file [sales_results.txt](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/sales_results.txt). The full linecount of every sales record is **1,277,014**.
 
 
-#### For which zip code area do you have the most sales records?
+### For which zip code area do you have the most sales records?
 
 For this, we use the same zipcode-separated CSV files, and execute the following bash commands to sort all files by word count, and pick out the file at the top:
 
@@ -69,7 +69,7 @@ This will give us the result:
 
 This means that the file contains 1700KB of data.
 
-#### For which zip code area do you have the fewest sales records?
+### For which zip code area do you have the fewest sales records?
 
 For this, we repeat the process of the last assignment, but with a small tweak to the script, replacing `head` with `tail` so that we get the last result in the sorted list.
 
