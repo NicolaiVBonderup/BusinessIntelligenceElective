@@ -27,7 +27,7 @@ In order to produce this data, we ran our Python script with the option to gener
 
 This command finds every file ending with the extension `.csv`, and prints the linecount of each file into the file 'sales_results.txt'.
 
-The full results are available in the file [sales_results.txt](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/sales_results.txt). The full linecount of every sales record is *1277014*.
+The full results are available in the file [sales_results.txt](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/sales_results.txt). The full linecount of every sales record is **1,277,014**.
 
 
 #### For which zip code area do you have the most sales records?
