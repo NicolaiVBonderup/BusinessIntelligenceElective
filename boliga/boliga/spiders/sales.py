@@ -31,9 +31,8 @@ class SalesSpider(scrapy.Spider):
             
         
         if (zip_split is ''):
-            #print("zip_split argument not applied, saving data into one file.")
             print("The script can save the data into zipcode-separated files, or a single file.")
-            decision = input("Would you like to split the data into several CSV files?: ").lower()
+            decision = input("Would you like to split the data into several CSV files?: ")
             if decision in no_types:
                 self.zip_split = 'n'
                 self.decision_save_to_single_file()
