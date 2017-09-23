@@ -117,6 +117,9 @@ def calculate_mean_ppsqm(dataframe):
     aarhus_zips = dataframe[dataframe['zip_code'].str.contains('8000')]
     aalborg_zips = dataframe[dataframe['zip_code'].str.contains('9000')]
     
+    # Method that casts the 'price_per_sq_m' values into floats.
+    # Casting in DataFrame.read_csv() does not work due to non-float values in the column.
+    # Need to make scraper stricter about saving floats to certain columns.
     return calc_zip_floats([copenhagen_zips,odense_zips,aarhus_zips,aalborg_zips])
     
     

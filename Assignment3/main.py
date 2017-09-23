@@ -19,7 +19,8 @@ def run():
     datetime_dataframe = io.read_csv_to_dataframe("./geodata/datetime_data.csv")
     #dh.average_price_per_square_meter(datetime_dataframe)
     #dh.average_price_per_square_meter_no_datetime(datetime_dataframe)
-    plot.generate_scatter_plot(datetime_dataframe)
+    #plot.generate_scatter_plot_from_dataframe(datetime_dataframe)
+    plot.plot_haversine_for_roskilde(datetime_dataframe)
 
 
 run()
