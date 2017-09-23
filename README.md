@@ -4,83 +4,43 @@ This is a repository for the assignments given in the Business Intelligence elec
 
 Assignment hand-ins displayed on this repository are group hand-ins for the group Disgusting Software, consisting of Emil Rosenius Pedersen, Theis Rye and Nicolai Vikkelsø Bonderup.
 
-# Assignment 2: Data Collection
+# Assignment 3: Data Processing
 
 The webscraper we have written for scraping the data off of the Boliga mirror was written using the Scrapy framework, instead of Beautiful Soup. The contents of the [boliga folder](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga) contain all of the necessary project and setup files for Scrapy to function, along with the Python script file [sales.py](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/boliga/boliga/spiders/sales.py) in the folder [spiders](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga/boliga/spiders), which contains our webscraper script.
 
 ## Dependencies
-Running the scraper script requires the installation of the following dependencies: 
-- [Scrapy](https://scrapy.org/)
-- [Microsoft Visual C++ Build Library](http://landinghub.visualstudio.com/visual-cpp-build-tools)
+Running the script requires the installation of the following dependencies: 
+- [osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert)
+- [XML_Breaker.py](https://gist.github.com/nicwolff/b4da6ec84ba9c23c8e59)
 - [tqdm](https://github.com/tqdm/tqdm)
-- [pywin32](https://sourceforge.net/projects/pywin32/). 
 
 ## How to run
-To run the scraper, creating a .CSV file in the working directory with the results, execute the following command anywhere inside the [boliga folder](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga):
+
+Due to difficulties with parsing the full OSM file consuming too much memory, I've elected to trim and separate the file into smaller, more manageable chunks, and then reading them sequentially.
+
+First, I downloaded the binary for [osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert), and adding it to the PATH of my CLI. In my case, I use Git Bash, so I renamed the file to simply `osmconvert` and added it to the `Git/mingw64/bin` directory.
+
+Once I had `osmconvert` available, I moved to the directory where my .OSM file was, and ran the following command:
 
 ```bash
-$ scrapy runspider sales --nolog
+$ osmconvert denmark-latest.osm --drop-ways --drop-relations > trimmed-denmark-latest.osm
 ```
 
-*The* `--nolog` *modifier can be left off in order to see realtime logs from the scraper, but it will flood the console with a log from Scrapy for every site opened.*
+Running this command takes the OSM file, and writes it to a new file, `trimmed-denmark-latest.osm`, but leaving out all `<way>` and `<relation>` elements, reducing the size of the file by almost a full gigabyte.
 
-### Arguments
-We have also added custom arguments to the script. Being that we are running through the Scrapy framework, we could not use the standard `argparse` module, but instead used the argument `-a` built into the Scrapy framework to introduce custom arguments.
+Afterwards, I split the file into several files using the [XML_Breaker.py](https://gist.github.com/nicwolff/b4da6ec84ba9c23c8e59) script. This script takes the provided file, and splits it at a provided line threshhold, but with consideration taken to not splitting the file in the middle of an element.
 
-#### zip_split
-`zip_split` takes either a 'yes' or 'no', alternatively 'y' or 'n', which determines if the scraped data should be split into CSV files separated by zipcode, or kept in one big CSV file.
-
-## Assignments
-
-### How many sales records are there per zip code area? How many in total? 
-
-In order to produce this data, we ran our Python script with the option to generate separate CSV files for every zipcode. Thereafter, we ran the following bash command:
+In this case, I wanted to split the file between `<node>` elements, and I wanted the files small enough to be manageable, so I ran it with the following commands:
 
 ```bash
-$ find . -name '*.csv' | xargs wc -l >> sales_results.txt
+$ py -2 XML_breaker.py trimmed-denmark-latest.xml node 2000000
 ```
 
-This command finds every file ending with the extension `.csv`, and prints the linecount of each file into the file 'sales_results.txt'.
+This way, I split it every 2,000,000 lines, but only between `</node>` and `<node>` tags.
 
-The full results are available in the file [sales_results.txt](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/sales_results.txt). The full linecount of every sales record is **1,277,014**.
+Be aware that this script is written in Python 2.7, and as such will not run normally with Python 3.6 installed. Therefore, add the following to the top of the script before running:
 
-
-### For which zip code area do you have the most sales records?
-
-For this, we use the same zipcode-separated CSV files, and execute the following bash commands to sort all files by word count, and pick out the file at the top:
-
-```bash
-$ find . -name "*.csv" -type f | xargs wc -l | sort -rn | grep -v ' total$' | head -1
+```python
+#! /usr/bin/env python2
 ```
-
-We `find` a file in the working directory, matching it by its `-name`, which is a regular file, so we add `-type f`. We then use `xargs` to execute commands, such as `wc -l` to count the lines of each document. We then `sort -rn` to reverse and numerically sort the files by their linecount, `grep -v ' total$'` to remove the 'total' line that `wc` generates, and `head -1` to only display the first result at the top of the list.
-
-The result of this command is:
-
-`17405 ./2300.csv`
-
-As such, we know that 2300.csv is the largest file, containing 17,405 records, meaning that apparently people **really** want to sell their homes and move away from København S. We can now use `du` to calculate the disk usage of a file:
-
-```bash
-$ du -k 2300.csv
-```
-
-This will give us the result:
-
-`1700 2300.csv`
-
-This means that the file contains 1700KB of data.
-
-### For which zip code area do you have the fewest sales records?
-
-For this, we repeat the process of the last assignment, but with a small tweak to the script, replacing `head` with `tail` so that we get the last result in the sorted list.
-
-```bash
-$ find . -name "*.csv" -type f | xargs wc -l | sort -rn | grep -v ' total$' | tail -1
-```
-
-The result of this command is;
-
-`1 ./1061.csv`
-
-This means that the file contains ~1MB of data.
+The memory footprint of this script is virtually non-existent, so I'm likely going to attempt to rewrite it in Python 3.6 once I've finished the assignment, to see if I can't figure out how to do this kind of file processing without memory issues.
