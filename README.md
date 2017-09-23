@@ -6,8 +6,6 @@ Assignment hand-ins displayed on this repository are group hand-ins for the grou
 
 # Assignment 3: Data Processing
 
-The webscraper we have written for scraping the data off of the Boliga mirror was written using the Scrapy framework, instead of Beautiful Soup. The contents of the [boliga folder](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga) contain all of the necessary project and setup files for Scrapy to function, along with the Python script file [sales.py](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/boliga/boliga/spiders/sales.py) in the folder [spiders](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga/boliga/spiders), which contains our webscraper script.
-
 ## Dependencies
 Running the script requires the installation of the following dependencies: 
 - [osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert)
@@ -16,9 +14,11 @@ Running the script requires the installation of the following dependencies:
 
 ## How to run
 
+**First Draft, spell checking, formatting etc. later**
+
 Due to difficulties with parsing the full OSM file consuming too much memory, I've elected to trim and separate the file into smaller, more manageable chunks, and then reading them sequentially.
 
-First, I downloaded the binary for [osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert), and adding it to the PATH of my CLI. In my case, I use Git Bash, so I renamed the file to simply `osmconvert` and added it to the `Git/mingw64/bin` directory.
+First, I downloaded the binary for [osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert), and added it to the PATH of my CLI. In my case, I use Git Bash, so I renamed the file to simply `osmconvert` and added it to the `Git/mingw64/bin` directory.
 
 Once I had `osmconvert` available, I moved to the directory where my .OSM file was, and ran the following command:
 
