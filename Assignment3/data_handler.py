@@ -89,12 +89,19 @@ def average_price_per_square_meter(dataframe):
     # Works partially, but does not get everything. For example, all sales in '5000 Odense C' in 2016 are missing.
     #df_2016 = dataframe[dataframe['sell_date'] == '2016'] 
     
+    #dataframe = dataframe[dataframe['price_per_sq_m'].apply(lambda x: isfloat(x))]
+    
     # Converting the datetime objects in each series into a string for the lookup, so that '.str.contains()' can be used.
     df_1992 = get_dataframe_by_year(dataframe,'1992')
     df_2016 = get_dataframe_by_year(dataframe,'2016')
    
     mean_1992 = calculate_mean_ppsqm(df_1992)
     mean_2016 = calculate_mean_ppsqm(df_2016)
+    
+    mean_dataframe = pd.DataFrame({"city": ['København','Odense','Aarhus','Aalborg'], "mean_1992": mean_1992, "mean_2016": mean_2016}, columns=['city','mean_1992','mean_2016'])
+
+    io.write_dataframe_to_csv(mean_dataframe,'./data/mean_sales.csv')
+    
     
 def get_dataframe_by_year(dataframe,year):
     columns_to_drop = ['address','api_addresses','sell_type','price','no_rooms','housing_type','year_of_construction','size_in_sq_m','price_change_in_pct']
@@ -104,11 +111,43 @@ def get_dataframe_by_year(dataframe,year):
     
 def calculate_mean_ppsqm(dataframe):
     # Seems like there's no sales in 1050/1049 in the years 1992 and 2016.
+    # Might be that our scraper was too harsh.
     copenhagen_zips = dataframe[dataframe['zip_code'].str.contains('1050|1049')]
     odense_zips = dataframe[dataframe['zip_code'].str.contains('5000')]
+    aarhus_zips = dataframe[dataframe['zip_code'].str.contains('8000')]
+    aalborg_zips = dataframe[dataframe['zip_code'].str.contains('9000')]
     
-    print(odense_zips)
+    return calc_zip_floats([copenhagen_zips,odense_zips,aarhus_zips,aalborg_zips])
     
+    
+def calc_zip_floats(zip_list):
+    means = []
+    for zip in zip_list:
+        if (len(zip['price_per_sq_m'].values) is not 0):
+            float_list = create_float_array_from_zip_strings(zip['price_per_sq_m'].values)
+            means.append(np.mean(float_list))
+        else:
+            means.append(0.0)
+    return means
 
+    
+def create_float_array_from_zip_strings(zip_str_list):
+    fl_list = []
+    for zip in zip_str_list:
+        if isfloat(zip):
+            if zip is not 0:
+                fl_list.append(float(zip))
+        
+    return fl_list
+    
+def isfloat(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+    
+    
+    
     
     
