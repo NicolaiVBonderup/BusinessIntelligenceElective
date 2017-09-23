@@ -2,10 +2,12 @@ import pandas as pd
 import os
 import csv
 import platform
+import numpy as np
 
-def read_csv(csv_path):
+def read_csv_to_dataframe(csv_path):
 
-    df = pd.read_csv(csv_path)
+    #df = pd.read_csv(csv_path)
+    df = pd.read_csv(csv_path, dtype={'year_of_construction': str, 'no_rooms': str}, parse_dates=['sell_date'])
 
     return df
     
@@ -16,7 +18,9 @@ def write_to_csv(string,output_path):
         output_writer = csv.writer(f)
         output_writer.writerow(string)
         
-
+def write_dataframe_to_csv(dataframe,output_path):
+    
+    dataframe.to_csv(output_path,sep=',', encoding='utf-8')
 
 def setup_dataframe_csv():
     if not os.path.exists("geodata"):
