@@ -67,9 +67,9 @@ Along with these csv files, two image files are also created in the working dire
 
 ## Results
 
-#### Mean Price Per Square Inch
+#### Mean Price Per Square Meter
 
-The mean prices per square inch of the four specified cities were calculated as such:
+The mean prices per square meter of the four specified cities were calculated as such:
 
 |               | 1992              | 2016              |
 | ------------- | ----------------- | ----------------- |
