@@ -105,10 +105,11 @@ class SalesSpider(scrapy.Spider):
             )
             
             
-                
+            if (data_row[1].contains('1050|1049')):
+                print("Found: " + data_row)
             
             # Checks if the row is filled with null values.
-            if (data_row[0] is not None):
+            if (data_row[0] is not None and isfloat(data_row[5])):
                 # Checks if the zipcode row contains a valid zipcode
                 zip_values = data_row[1].split()
                 if (zip_values[0].isdigit() and len(zip_values[0]) is 4):
@@ -180,4 +181,12 @@ class SalesSpider(scrapy.Spider):
         with open(output_path, 'w', newline=self.newline, encoding='utf-8') as f:
             output_writer = csv.writer(f)
             output_writer.writerow(title_row)
+            
+    def isfloat(value):
+        try:
+            float(value)
+            return True
+        except ValueError:
+            return False
+    
         

@@ -149,8 +149,3 @@ def isfloat(value):
         return True
     except ValueError:
         return False
-    
-    
-    
-    
-    
