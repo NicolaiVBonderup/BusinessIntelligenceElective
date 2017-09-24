@@ -4,15 +4,16 @@ This is a repository for the assignments given in the Business Intelligence elec
 
 Assignment hand-ins displayed on this repository are group hand-ins for the group Disgusting Software, consisting of Emil Rosenius Pedersen, Theis Rye and Nicolai Vikkelsø Bonderup.
 
-# Assignment 3: Data Processing
+# Assignment 2: Data Collection
 
 The webscraper we have written for scraping the data off of the Boliga mirror was written using the Scrapy framework, instead of Beautiful Soup. The contents of the [boliga folder](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga) contain all of the necessary project and setup files for Scrapy to function, along with the Python script file [sales.py](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/boliga/boliga/spiders/sales.py) in the folder [spiders](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga/boliga/spiders), which contains our webscraper script.
 
 ## Dependencies
-Running the script requires the installation of the following dependencies: 
-- [osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert)
-- [XML_Breaker.py](https://gist.github.com/nicwolff/b4da6ec84ba9c23c8e59)
+Running the scraper script requires the installation of the following dependencies: 
+- [Scrapy](https://scrapy.org/)
+- [Microsoft Visual C++ Build Library](http://landinghub.visualstudio.com/visual-cpp-build-tools)
 - [tqdm](https://github.com/tqdm/tqdm)
+- [pywin32](https://sourceforge.net/projects/pywin32/). 
 
 ## How to run
 To run the scraper, creating a .CSV file in the working directory with the results, execute the following command anywhere inside the [boliga folder](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga):
