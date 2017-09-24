@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import math
-import numpy as np
 import io_handler as io
 import os
 from pandas import Series

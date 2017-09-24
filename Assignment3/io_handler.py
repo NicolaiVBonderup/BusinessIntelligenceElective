@@ -9,7 +9,6 @@ def read_csv_to_dataframe(csv_path, dtype=''):
     if (dtype is ''):
         df = pd.read_csv(csv_path)
     else:
-       #df = pd.read_csv(csv_path, dtype={'year_of_construction': str, 'no_rooms': str}, parse_dates=['sell_date'])
         df = pd.read_csv(csv_path, dtype=dtype, parse_dates=['sell_date'])
 
     return df

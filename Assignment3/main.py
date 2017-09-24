@@ -1,5 +1,4 @@
 import io_handler as io
-import tqdm
 import data_handler as dh
 import plotter as plot
 import os

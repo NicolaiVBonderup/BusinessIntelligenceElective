@@ -1,5 +1,4 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
 import io_handler as io
 import os
@@ -100,7 +99,7 @@ def average_price_per_square_meter(dataframe):
     
     mean_dataframe = pd.DataFrame({"city": ['København','Odense','Aarhus','Aalborg'], "mean_1992": mean_1992, "mean_2016": mean_2016}, columns=['city','mean_1992','mean_2016'])
 
-    io.write_dataframe_to_csv(mean_dataframe,'./data/mean_sales.csv')
+    io.write_dataframe_to_csv(mean_dataframe,'./geodata/mean_sales.csv')
     
     
 def get_dataframe_by_year(dataframe,year):
@@ -111,8 +110,11 @@ def get_dataframe_by_year(dataframe,year):
     
 def calculate_mean_ppsqm(dataframe):
     # Seems like there's no sales in 1050/1049 in the years 1992 and 2016.
-    # Might be that our scraper was too harsh.
-    copenhagen_zips = dataframe[dataframe['zip_code'].str.contains('1050|1049')]
+    # As such, we assume that the assignment description has an error, where the intended scale is 1050-1549.
+    # We generate a string with all København zipcodes, delimited by |, so we can search through them all in str.contains()
+    cph_range_string = '|'.join(map(str,range(1050,1549)))
+    
+    copenhagen_zips = dataframe[dataframe['zip_code'].str.contains(cph_range_string)]
     odense_zips = dataframe[dataframe['zip_code'].str.contains('5000')]
     aarhus_zips = dataframe[dataframe['zip_code'].str.contains('8000')]
     aalborg_zips = dataframe[dataframe['zip_code'].str.contains('9000')]
