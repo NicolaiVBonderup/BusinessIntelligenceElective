@@ -15,7 +15,7 @@ Running the script requires the installation of the following dependencies:
 - ​[NumPy](http://www.numpy.org/)
 - [osmread](https://github.com/dezhin/osmread)
 
-## Preparation
+## How to run
 
 Due to difficulties with parsing the full OSM file consuming too much memory, we've elected to trim and separate the file into smaller, more manageable chunks, and then reading them sequentially.
 
@@ -46,8 +46,6 @@ Be aware that this script is written in Python 2.7, and as such will not run nor
 ```
 The memory footprint of this script is virtually non-existent, so it would be a good idea to attempt to recreate it in Python 3.6 some time, to see if we can't figure out how to do this kind of file processing without memory issues.
 
-### How To Run
-
 Once this is all done, move the split-up osm/xml files to the `data` folder, and place the `boliga_prices.csv` file from the previous assignment in the same folder as `main.py`. Would've liked to add custom arguments for choosing paths, but we ran out of time due to a lot of unforeseen issues encountered throughout this assignment.
 
 Once the files are in place, simply run the script:
@@ -77,3 +75,17 @@ The mean prices per square inch of the four specified cities were calculated as 
 | **Odense**    | 5.452180722891566 | 19.1051107266436  |
 | **Aarhus**    | 12.889            | 44.49854609929078 |
 | **Aalborg**   | 8.167764285714286 | 22.21893777777778 |
+
+#### Scatter Plots
+
+**Scatter plot without haversine coloring: **
+
+![scatter1](https://raw.githubusercontent.com/NicolaiVBonderup/BusinessIntelligenceElective/master/Assignment3/latlongscatter.png)
+
+
+
+**Scatter plot with haversine coloring: **
+
+
+
+![scatter2](https://raw.githubusercontent.com/NicolaiVBonderup/BusinessIntelligenceElective/master/Assignment3/roskildescatter.png)
