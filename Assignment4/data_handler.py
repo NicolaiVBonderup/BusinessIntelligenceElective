@@ -22,6 +22,33 @@ def get_house_trade_freq_by_zipcode(dataframe):
         
     return sales_by_zip
     
+def get_house_trade_freq_with_room_no(dataframe):
+    
+    unique_zips = dataframe['zip_int'].unique()
+    unique_zips.sort()
+    # Sorted by order of insertion, so we sort the zips first.
+    sales_by_zip = collections.OrderedDict()
+    
+    #num_rooms_variance = dataframe['no_rooms'].unique()
+    
+    for zip in unique_zips:
+        
+        zip_df = dataframe[dataframe['zip_int'] == zip]
+        num_rooms_variance = zip_df['no_rooms'].unique()
+        rooms_dict = {}
+        
+        for room_amount in num_rooms_variance:
+            occurences = len(zip_df[zip_df['no_rooms'] == room_amount])
+            if occurences > 0:
+                rooms_dict[room_amount] = occurences
+        sales_by_zip[zip] = rooms_dict
+        
+        print(zip)
+        
+    return sales_by_zip
+    
+    
+    
 def get_dataframe_by_year(dataframe,requested_year):
 
     return dataframe[dataframe['sell_date'].dt.year == requested_year]

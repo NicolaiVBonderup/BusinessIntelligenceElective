@@ -28,8 +28,10 @@ def run():
     
 def generate_zip_trade_histogram(dataframe):
     
-    sales_by_zip = dh.get_house_trade_freq_by_zipcode(dataframe)
-    plot.generate_histogram_for_sales_by_zip(sales_by_zip)
+    s = dh.get_house_trade_freq_with_room_no(dataframe)
+    print (s)
+    #sales_by_zip = dh.get_house_trade_freq_by_zipcode(dataframe)
+   # plot.generate_histogram_for_sales_by_zip(sales_by_zip)
     
 def generate_cph_basemap(dataframe):
     
