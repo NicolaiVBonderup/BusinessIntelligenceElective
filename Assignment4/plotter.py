@@ -7,9 +7,33 @@ import folium
 import data_handler as dh
 import math
 
-#def generate_scatter_plot_from_dataframe(dataframe):
-#    plot = dataframe.plot(kind='scatter',x='lon',y='lat')
-#    plot.get_figure().savefig('./data/latlongscatter.png')
+def generate_histogram_by_room_numbers(sales):
+    
+    fig = plt.figure()
+    
+    zip_ints = []
+    rooms_dict = {}
+    rooms_col = []
+    
+    #x = np.random.randn(1000,3)
+    # Maybe set a limit for how many rooms can be shown, otherwise it's a horrorshow.
+    idx = 0
+    for zip, room_dict in sales.items():
+        rooms_amounts = []
+        for rooms, amount in room_dict.items():
+            if rooms in "1 2 3 4 5 6":
+                rooms_amounts.append(amount)
+        rooms_col.append(rooms_amounts)
+        zip_ints.append(zip)
+        idx += 1
+        if idx > 50:
+            break
+        
+    print(len(rooms_col))
+    
+    
+    plt.hist(rooms_col, len(zip_ints), histtype='bar', stacked=True)
+    fig.savefig('./data/histogram_by_rooms1.png')
     
 def generate_basemap_for_copenhagen(dataframe):
     
@@ -22,14 +46,10 @@ def generate_basemap_for_copenhagen(dataframe):
     coords = generate_coord_sets(dataframe)
     idx = 0
     for city, coord in coords.items():
-        #y_adjust = 100000 if city is 'Odense' else 0
     
         x, y = m(coord[1], coord[0])
         plt.plot(x, y, 'ok', markersize=5)
     
-        #plt.text(x + 50000, y - y_adjust, city, fontsize=8)
-        
-        
     fig.savefig('./data/copenhagen_haver.png')
     
 def generate_histogram_for_sales_by_zip(sales_by_zip):
@@ -44,7 +64,6 @@ def generate_histogram_for_sales_by_zip(sales_by_zip):
         y.append(no_of_sales)
     
     plt.bar(x,y,align='center')
-    #plt.hist(y, bins=len(x), normed=True, cumulative=True)
     
     fig.savefig('./data/sales_by_zip.png')
     
