@@ -1,5 +1,6 @@
 import pandas as pd
 import math
+import collections
 
 def create_int_zip_label(dataframe):
     zip_df = pd.DataFrame(dataframe['zip_code'].str.split(' ',1).tolist(), columns = ['zip','city'])
@@ -8,6 +9,19 @@ def create_int_zip_label(dataframe):
     dataframe['zip_int'] = pd.to_numeric(dataframe['zip_int'], errors='coerce')
     return dataframe
 
+def get_house_trade_freq_by_zipcode(dataframe):
+    
+    unique_zips = dataframe['zip_int'].unique()
+    unique_zips.sort()
+    # Sorted by order of insertion, so we sort the zips first.
+    sales_by_zip = collections.OrderedDict()
+    
+    for zip in unique_zips:
+        no_of_sales = len(dataframe[dataframe['zip_int'] == zip])
+        sales_by_zip[zip] = no_of_sales
+        
+    return sales_by_zip
+    
 def get_dataframe_by_year(dataframe,requested_year):
 
     return dataframe[dataframe['sell_date'].dt.year == requested_year]

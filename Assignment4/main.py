@@ -20,8 +20,16 @@ def run():
     
     #### Step 3
     
-    generate_norreport_distance_plot(boliga_dataframe)
+    #generate_norreport_distance_plot(boliga_dataframe)
     
+    #### Step 4
+    
+    generate_zip_trade_histogram(boliga_dataframe)
+    
+def generate_zip_trade_histogram(dataframe):
+    
+    sales_by_zip = dh.get_house_trade_freq_by_zipcode(dataframe)
+    plot.generate_histogram_for_sales_by_zip(sales_by_zip)
     
 def generate_cph_basemap(dataframe):
     

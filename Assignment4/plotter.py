@@ -32,8 +32,24 @@ def generate_basemap_for_copenhagen(dataframe):
         
     fig.savefig('./data/copenhagen_haver.png')
     
-def generate_histogram_for_sales_by_zip(dataframe):
-    zips = dataframe['zip_int'].values
+def generate_histogram_for_sales_by_zip(sales_by_zip):
+    
+    fig = plt.figure(figsize=(15,15))
+    
+    # Cannot use zip(), too many items. Have to iterate.
+    x = []
+    y = []
+    for zip, no_of_sales in sales_by_zip.items():
+        x.append(zip)
+        y.append(no_of_sales)
+    
+    
+    
+    plt.bar(x,y,align='center')
+    #plt.hist(y, bins=len(x), normed=True, cumulative=True)
+    
+    fig.savefig('./data/sales_by_zip.png')
+    
     
     
 def generate_norreport_distance_plot(dataframe):
