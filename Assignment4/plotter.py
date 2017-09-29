@@ -4,10 +4,12 @@ from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 import numpy as np
 import folium
+import data_handler as dh
+import math
 
-def generate_scatter_plot_from_dataframe(dataframe):
-    plot = dataframe.plot(kind='scatter',x='lon',y='lat')
-    plot.get_figure().savefig('./data/latlongscatter.png')
+#def generate_scatter_plot_from_dataframe(dataframe):
+#    plot = dataframe.plot(kind='scatter',x='lon',y='lat')
+#    plot.get_figure().savefig('./data/latlongscatter.png')
     
 def generate_basemap_for_copenhagen(dataframe):
     
@@ -28,7 +30,32 @@ def generate_basemap_for_copenhagen(dataframe):
         #plt.text(x + 50000, y - y_adjust, city, fontsize=8)
         
         
-    fig.savefig('copenhagen_haver.png')
+    fig.savefig('./data/copenhagen_haver.png')
+    
+def generate_histogram_for_sales_by_zip(dataframe):
+    zips = dataframe['zip_int'].values
+    
+    
+def generate_norreport_distance_plot(dataframe):
+
+    norreport_geo = (55.6833306,12.569664388)
+    dataframe = dataframe.assign(km_to_nrp=dh.haversine_to_location(dataframe))
+    
+    fig = plt.figure()
+    
+    y = dataframe['km_to_nrp'].values
+    x = dataframe['price_per_sq_m'].values
+    
+    # Reverse sort
+    y[::-1].sort()
+    x.sort()
+    
+    plt.plot(x,y,'ro')
+    plt.xlabel('Price Per m2, in Thousands')
+    plt.ylabel('Distance to Norreport Station')
+    plt.gca().invert_yaxis()
+    
+    fig.savefig('./data/norreport_sales.png')
     
     
 def generate_coord_sets(df):
@@ -53,3 +80,6 @@ def generate_folium_map(dataframe):
         
     my_map.save('./data/large_flat_trades.html')
     #my_map
+    
+
+    
