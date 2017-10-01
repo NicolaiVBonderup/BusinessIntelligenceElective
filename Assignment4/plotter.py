@@ -30,12 +30,12 @@ def generate_histogram_by_room_numbers(sales):
         
     
     rooms_col = np.asarray(rooms_col)
-    bins = 10
+    bins = len(rooms_col)
     
-    n, bins, patches = plt.hist(rooms_col, len(zip_ints), normed=1, cumulative=True, histtype='bar', stacked=True)
+    n, bins, patches = plt.hist(rooms_col, bins, normed=1, cumulative=True, histtype='bar', stacked=True)
     
     
-    fig.savefig('./data/histogram_by_rooms1.png')
+    fig.savefig('./data/histogram_by_rooms.png')
     
 def generate_3d_histogram(sales_by_zip):
     

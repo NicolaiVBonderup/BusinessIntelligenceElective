@@ -29,9 +29,8 @@ def get_house_trade_freq_with_room_no(dataframe):
     # Sorted by order of insertion, so we sort the zips first.
     sales_by_zip = collections.OrderedDict()
     
-    num_rooms_variance = dataframe['no_rooms'].unique()
-    
-    #num_rooms_variance = ['1','2','3','4','5','6','7','8','9','10']
+    num_rooms_variance = range(1,20)
+    num_rooms_variance = [str(i) for i in num_rooms_variance]
     
     for zip in unique_zips:
         
