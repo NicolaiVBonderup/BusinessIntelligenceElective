@@ -28,7 +28,7 @@ def run():
     
     #### Step 5
     
-    #generate_zip_rooms_histogram(boliga_dataframe)
+    generate_zip_rooms_histogram(boliga_dataframe)
     
     #### Step 6
     
@@ -36,7 +36,7 @@ def run():
     
     #### Step 7
     
-    find_value_of_kfc_proximity(boliga_dataframe)
+    #find_value_of_kfc_proximity(boliga_dataframe)
     
     
 def generate_zip_trade_3d(dataframe):

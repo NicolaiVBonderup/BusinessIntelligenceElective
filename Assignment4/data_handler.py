@@ -31,6 +31,8 @@ def get_house_trade_freq_with_room_no(dataframe):
     
     num_rooms_variance = dataframe['no_rooms'].unique()
     
+    #num_rooms_variance = ['1','2','3','4','5','6','7','8','9','10']
+    
     for zip in unique_zips:
         
         zip_df = dataframe[dataframe['zip_int'] == zip]
@@ -40,9 +42,10 @@ def get_house_trade_freq_with_room_no(dataframe):
             occurences = len(zip_df[zip_df['no_rooms'] == room_amount])
             #if occurences > 0:
             rooms_dict[room_amount] = occurences
+            
         sales_by_zip[zip] = rooms_dict
-        
-        
+    
+    
     return sales_by_zip
     
     
@@ -53,9 +56,8 @@ def get_dataframe_by_year(dataframe,requested_year):
     
     
 def get_dataframes_by_zip(dataframe,zip_list):
-    #pattern = '|'.join(zip_list)
+
     return dataframe[dataframe['zip_int'].isin(zip_list)]
-    #return dataframe[dataframe['zip_code'].str.contains(pattern)]
     
 def haversine_to_location(mult,dataframe):
     
@@ -83,31 +85,34 @@ def multiple_haversines(row):
     kfc_geos = [(55.676448,12.569685),(55.659483,12.606444),(55.631115,12.577801),(55.671519,12.455936)]
     results = []
     for kfc in kfc_geos:
-        results.append(calc_haversine_kfc(kfc,row))
+        results.append(calc_haversine(row,kfc))
     return min(results)
    
-def calc_haversine_kfc(kfc,row):
+#def calc_haversine_kfc(kfc,row):
 
     # Done in a hurry, will refactor if have the time
 
-    lat_orig, lon_orig = kfc
-    lat_dest = row['lat']
-    lon_dest = row['lon']
+#    lat_orig, lon_orig = kfc
+#    lat_dest = row['lat']
+#    lon_dest = row['lon']
     
-    radius = 6371
+#    radius = 6371
 
-    dlat = math.radians(lat_dest-lat_orig)
-    dlon = math.radians(lon_dest-lon_orig)
-    a = (math.sin(dlat / 2) * math.sin(dlat / 2) + math.cos(math.radians(lat_orig)) 
-        * math.cos(math.radians(lat_dest)) * math.sin(dlon / 2) * math.sin(dlon / 2))
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    d = radius * c
+ #   dlat = math.radians(lat_dest-lat_orig)
+ #   dlon = math.radians(lon_dest-lon_orig)
+ #   a = (math.sin(dlat / 2) * math.sin(dlat / 2) + math.cos(math.radians(lat_orig)) 
+ #       * math.cos(math.radians(lat_dest)) * math.sin(dlon / 2) * math.sin(dlon / 2))
+ #   c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+ #   d = radius * c
 
     return d
    
-def calc_haversine(row):
-
-    lat_orig, lon_orig = (55.676111,12.568333)
+def calc_haversine(row,kfc=''):
+    
+    if kfc is not '':
+        lat_orig, lon_orig = kfc
+    else:
+        lat_orig, lon_orig = (55.676111,12.568333)
     lat_dest = row['lat']
     lon_dest = row['lon']
     

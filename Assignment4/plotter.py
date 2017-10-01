@@ -3,10 +3,12 @@ warnings.filterwarnings('ignore')
 from mpl_toolkits.basemap import Basemap
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
+import pylab as P
 import numpy as np
 import folium
 import data_handler as dh
 import math
+from tqdm import tqdm 
 
 def generate_histogram_by_room_numbers(sales):
     
@@ -15,29 +17,23 @@ def generate_histogram_by_room_numbers(sales):
     zip_ints = []
     rooms_dict = {}
     rooms_col = []
+    highest_y = 0
     
-    #x = np.random.randn(1000,3)
-    # Maybe set a limit for how many rooms can be shown, otherwise it's a horrorshow.
-    
-    idx = 0
     for zip, room_dict in sales.items():
         rooms_amounts = []
         for rooms, amount in room_dict.items():
-            #if rooms in "1 2 3 4 5 6":
+            if (amount > highest_y) : 
+                highest_y = amount
             rooms_amounts.append(amount)
         rooms_col.append(rooms_amounts)
         zip_ints.append(zip)
-        #idx += 1
-        #if idx > 100:
-        #    break
         
-        
-    plt.ylim([0,5000])
-    for bar in rooms_col:
-        plt.hist(bar, 2, normed=1, histtype='bar', stacked=True, cumulative=True)
     
-    plt.xlabel("zipcodes")
-    plt.ylabel("rooms")
+    rooms_col = np.asarray(rooms_col)
+    bins = 10
+    
+    n, bins, patches = plt.hist(rooms_col, len(zip_ints), normed=1, cumulative=True, histtype='bar', stacked=True)
+    
     
     fig.savefig('./data/histogram_by_rooms1.png')
     
@@ -78,7 +74,6 @@ def generate_basemap_for_copenhagen(dataframe):
     m = Basemap(projection='lcc', resolution=None,
             width=5000000, height=5000000, 
             lat_0=55, lon_0=10,)
-    #m.etopo(scale=1.0, alpha=0.5)
     
     coords = generate_coord_sets(dataframe)
     idx = 0
@@ -108,7 +103,6 @@ def generate_histogram_for_sales_by_zip(sales_by_zip):
     
 def generate_norreport_distance_plot(dataframe):
 
-    #norreport_geo = (55.6833306,12.569664388)
     dataframe = dataframe.assign(km_to_nrp=dh.haversine_to_location(dataframe))
     
     fig = plt.figure()
@@ -168,7 +162,6 @@ def generate_folium_map(dataframe):
             folium.CircleMarker(location=[coords[1], coords[0]], radius=2).add_to(my_map)
         
     my_map.save('./data/large_flat_trades.html')
-    #my_map
     
 
     
