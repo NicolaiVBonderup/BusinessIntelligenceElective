@@ -15,6 +15,6 @@ def read_csv_to_dataframe(csv_path, dtype=''):
 
     return df
     
-    
-
-        
+def setup_directory():
+    if not os.path.exists("data"):
+        os.makedirs("data")

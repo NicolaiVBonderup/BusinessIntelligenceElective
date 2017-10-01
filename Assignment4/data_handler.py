@@ -39,7 +39,6 @@ def get_house_trade_freq_with_room_no(dataframe):
         
         for room_amount in num_rooms_variance:
             occurences = len(zip_df[zip_df['no_rooms'] == room_amount])
-            #if occurences > 0:
             rooms_dict[room_amount] = occurences
             
         sales_by_zip[zip] = rooms_dict
@@ -69,8 +68,6 @@ def haversine_to_location(mult,dataframe):
     
 def plot_haversine_from_copenhagen(dataframe):
     
-    # For every series, plot haversine distance from lat and long. 'axis' tells it to read it row by row on the Y axis, instead of X.
-    
     dataframe = dataframe.assign(km_to_cph=haversine_to_location(0,dataframe))
     
     return dataframe[dataframe['km_to_cph'] <= 50]
@@ -86,25 +83,7 @@ def multiple_haversines(row):
     for kfc in kfc_geos:
         results.append(calc_haversine(row,kfc))
     return min(results)
-   
-#def calc_haversine_kfc(kfc,row):
 
-    # Done in a hurry, will refactor if have the time
-
-#    lat_orig, lon_orig = kfc
-#    lat_dest = row['lat']
-#    lon_dest = row['lon']
-    
-#    radius = 6371
-
- #   dlat = math.radians(lat_dest-lat_orig)
- #   dlon = math.radians(lon_dest-lon_orig)
- #   a = (math.sin(dlat / 2) * math.sin(dlat / 2) + math.cos(math.radians(lat_orig)) 
- #       * math.cos(math.radians(lat_dest)) * math.sin(dlon / 2) * math.sin(dlon / 2))
- #   c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
- #   d = radius * c
-
-    return d
    
 def calc_haversine(row,kfc=''):
     

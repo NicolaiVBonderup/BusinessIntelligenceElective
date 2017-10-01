@@ -51,11 +51,6 @@ def generate_3d_histogram(sales_by_zip):
     hist, xedges, yedges = np.histogram2d(x, y, bins=(7,7))
     xpos, ypos = np.meshgrid(xedges[:-1] + xedges[1:], yedges[:-1] + yedges[1:])
     
-    print (xedges[:-1])
-    print (xedges[1:])
-    print (yedges[:-1])
-    print (yedges[1:])
-    
     xpos = xpos.flatten()/2
     ypos = ypos.flatten()/2
     zpos = np.zeros_like(xpos)
@@ -100,35 +95,26 @@ def generate_histogram_for_sales_by_zip(sales_by_zip):
     fig.savefig('./data/sales_by_zip.png')
     
     
-    
 def generate_norreport_distance_plot(dataframe):
 
-    dataframe = dataframe.assign(km_to_nrp=dh.haversine_to_location(dataframe))
-    
-    fig = plt.figure()
+    dataframe = dataframe.assign(km_to_nrp=dh.haversine_to_location(0,dataframe))
     
     y = dataframe['km_to_nrp'].values
     x = dataframe['price_per_sq_m'].values
     
-    # Reverse sort
-    y[::-1].sort()
-    x.sort()
+    generate_plot(x,y,'norreport_sales')
     
-    plt.plot(x,y,'ro')
-    plt.xlabel('Price Per m2, in Thousands')
-    plt.ylabel('Distance to Norreport Station')
-    plt.gca().invert_yaxis()
-    
-    fig.savefig('./data/norreport_sales.png')
     
 def generate_kfc_distance_plot(dataframe):
 
-    # Again, refactor if have time.
-    
-    fig = plt.figure()
-    
     y = dataframe['km_to_kfc'].values
     x = dataframe['price_per_sq_m'].values
+    
+    generate_plot(x,y,'kfc_sales')
+    
+    
+def generate_plot(x,y,name):
+    fig = plt.figure()
     
     # Reverse sort
     y[::-1].sort()
@@ -139,7 +125,8 @@ def generate_kfc_distance_plot(dataframe):
     plt.ylabel('Distance to Nearest KFC')
     plt.gca().invert_yaxis()
     
-    fig.savefig('./data/kfc_sales.png')
+    fig.savefig('./data/' + name + '.png')
+    
     
 def generate_coord_sets(df):
     
@@ -152,6 +139,7 @@ def generate_coord_sets(df):
         coords[row['address']] = (row['lat'], row['lon'])
         
     return coords
+    
     
 def generate_folium_map(dataframe):
     my_map = folium.Map(location=[55.88207495748612, 10.636574309440173], zoom_start=6)
