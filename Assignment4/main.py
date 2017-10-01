@@ -28,10 +28,15 @@ def run():
     
     #### Step 5
     
-    generate_zip_trade_3d(boliga_dataframe)
+    #generate_zip_rooms_histogram(boliga_dataframe)
     
     #### Step 6
     
+    #generate_zip_trade_3d(boliga_dataframe)
+    
+    #### Step 7
+    
+    find_value_of_kfc_proximity(boliga_dataframe)
     
     
 def generate_zip_trade_3d(dataframe):
@@ -39,13 +44,16 @@ def generate_zip_trade_3d(dataframe):
     sales_by_zip = dh.get_house_trade_freq_by_zipcode(dataframe)
     plot.generate_3d_histogram(sales_by_zip)
     
+def generate_zip_rooms_histogram(dataframe):
+    
+    s = dh.get_house_trade_freq_with_room_no(dataframe)
+    plot.generate_histogram_by_room_numbers(s)
+    
 def generate_zip_trade_histogram(dataframe):
     
     sales_by_zip = dh.get_house_trade_freq_by_zipcode(dataframe)
     plot.generate_histogram_for_sales_by_zip(sales_by_zip)
     
-    s = dh.get_house_trade_freq_with_room_no(dataframe)
-    plot.generate_histogram_by_room_numbers(s)
     
 def generate_cph_basemap(dataframe):
     
@@ -81,6 +89,10 @@ def zips_for_sjaelland():
     zips.extend(range(1000,3670))
     zips.extend(range(4000,4793))
     return zips
+    
+def find_value_of_kfc_proximity(dataframe):
+    df = dh.plot_haversine_from_kfc(dataframe)
+    plot.generate_kfc_distance_plot(df)
     
 
 run()

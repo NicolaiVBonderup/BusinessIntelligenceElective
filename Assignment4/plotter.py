@@ -18,7 +18,7 @@ def generate_histogram_by_room_numbers(sales):
     
     #x = np.random.randn(1000,3)
     # Maybe set a limit for how many rooms can be shown, otherwise it's a horrorshow.
-    #rooms_unique = sales[
+    
     idx = 0
     for zip, room_dict in sales.items():
         rooms_amounts = []
@@ -27,16 +27,18 @@ def generate_histogram_by_room_numbers(sales):
             rooms_amounts.append(amount)
         rooms_col.append(rooms_amounts)
         zip_ints.append(zip)
-        idx += 1
+        #idx += 1
         #if idx > 100:
         #    break
         
         
-    
+    plt.ylim([0,5000])
     for bar in rooms_col:
-        plt.hist(bar, 10, normed=1, histtype='bar', stacked=True)
+        plt.hist(bar, 2, normed=1, histtype='bar', stacked=True, cumulative=True)
     
-    #plt.hist(rooms_col, len(zip_ints), histtype='bar', stacked=True)
+    plt.xlabel("zipcodes")
+    plt.ylabel("rooms")
+    
     fig.savefig('./data/histogram_by_rooms1.png')
     
 def generate_3d_histogram(sales_by_zip):
@@ -106,7 +108,7 @@ def generate_histogram_for_sales_by_zip(sales_by_zip):
     
 def generate_norreport_distance_plot(dataframe):
 
-    norreport_geo = (55.6833306,12.569664388)
+    #norreport_geo = (55.6833306,12.569664388)
     dataframe = dataframe.assign(km_to_nrp=dh.haversine_to_location(dataframe))
     
     fig = plt.figure()
@@ -125,6 +127,25 @@ def generate_norreport_distance_plot(dataframe):
     
     fig.savefig('./data/norreport_sales.png')
     
+def generate_kfc_distance_plot(dataframe):
+
+    # Again, refactor if have time.
+    
+    fig = plt.figure()
+    
+    y = dataframe['km_to_kfc'].values
+    x = dataframe['price_per_sq_m'].values
+    
+    # Reverse sort
+    y[::-1].sort()
+    x.sort()
+    
+    plt.plot(x,y,'ro')
+    plt.xlabel('Price Per m2, in Thousands')
+    plt.ylabel('Distance to Nearest KFC')
+    plt.gca().invert_yaxis()
+    
+    fig.savefig('./data/kfc_sales.png')
     
 def generate_coord_sets(df):
     
