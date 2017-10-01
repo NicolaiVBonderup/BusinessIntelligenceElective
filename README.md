@@ -54,7 +54,7 @@ Also, Nørreport is situated in the heart of Copenhagen, and being that the pric
 
 #### Cumulative Stacked Histogram
 
-![]()
+![stackedhist](https://raw.githubusercontent.com/NicolaiVBonderup/BusinessIntelligenceElective/master/Assignment4/data/histogram_by_rooms.png)
 
 #### 3D Histogram
 
