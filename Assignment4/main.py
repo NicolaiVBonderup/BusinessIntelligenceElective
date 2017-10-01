@@ -24,7 +24,20 @@ def run():
     
     #### Step 4
     
-    generate_zip_trade_histogram(boliga_dataframe)
+    #generate_zip_trade_histogram(boliga_dataframe)
+    
+    #### Step 5
+    
+    generate_zip_trade_3d(boliga_dataframe)
+    
+    #### Step 6
+    
+    
+    
+def generate_zip_trade_3d(dataframe):
+    
+    sales_by_zip = dh.get_house_trade_freq_by_zipcode(dataframe)
+    plot.generate_3d_histogram(sales_by_zip)
     
 def generate_zip_trade_histogram(dataframe):
     

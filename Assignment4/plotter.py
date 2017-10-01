@@ -1,6 +1,7 @@
 import warnings
 warnings.filterwarnings('ignore')
 from mpl_toolkits.basemap import Basemap
+from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import numpy as np
 import folium
@@ -17,23 +18,57 @@ def generate_histogram_by_room_numbers(sales):
     
     #x = np.random.randn(1000,3)
     # Maybe set a limit for how many rooms can be shown, otherwise it's a horrorshow.
+    #rooms_unique = sales[
     idx = 0
     for zip, room_dict in sales.items():
         rooms_amounts = []
         for rooms, amount in room_dict.items():
-            if rooms in "1 2 3 4 5 6":
-                rooms_amounts.append(amount)
+            #if rooms in "1 2 3 4 5 6":
+            rooms_amounts.append(amount)
         rooms_col.append(rooms_amounts)
         zip_ints.append(zip)
         idx += 1
-        if idx > 50:
-            break
+        #if idx > 100:
+        #    break
         
-    print(len(rooms_col))
+        
     
+    for bar in rooms_col:
+        plt.hist(bar, 10, normed=1, histtype='bar', stacked=True)
     
-    plt.hist(rooms_col, len(zip_ints), histtype='bar', stacked=True)
+    #plt.hist(rooms_col, len(zip_ints), histtype='bar', stacked=True)
     fig.savefig('./data/histogram_by_rooms1.png')
+    
+def generate_3d_histogram(sales_by_zip):
+    
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    # Cannot use zip(), too many items. Have to iterate.
+    x = []
+    y = []
+    for zip, no_of_sales in sales_by_zip.items():
+        x.append(zip)
+        y.append(no_of_sales)
+    
+    hist, xedges, yedges = np.histogram2d(x, y, bins=(7,7))
+    xpos, ypos = np.meshgrid(xedges[:-1] + xedges[1:], yedges[:-1] + yedges[1:])
+    
+    print (xedges[:-1])
+    print (xedges[1:])
+    print (yedges[:-1])
+    print (yedges[1:])
+    
+    xpos = xpos.flatten()/2
+    ypos = ypos.flatten()/2
+    zpos = np.zeros_like(xpos)
+    
+    dx = xedges [1] - xedges [0]
+    dy = yedges [1] - yedges [0]
+    dz = hist.flatten()
+
+    ax.bar3d(xpos, ypos, zpos, dx, dy, dz, color='b', zsort='average')
+    
+    fig.savefig('./data/sales_by_zip_3d.png')
     
 def generate_basemap_for_copenhagen(dataframe):
     

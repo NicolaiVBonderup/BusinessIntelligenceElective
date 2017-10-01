@@ -38,8 +38,8 @@ def get_house_trade_freq_with_room_no(dataframe):
         
         for room_amount in num_rooms_variance:
             occurences = len(zip_df[zip_df['no_rooms'] == room_amount])
-            if occurences > 0:
-                rooms_dict[room_amount] = occurences
+            #if occurences > 0:
+            rooms_dict[room_amount] = occurences
         sales_by_zip[zip] = rooms_dict
         
         
