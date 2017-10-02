@@ -13,7 +13,7 @@ Running the scraper script requires the installation of the following dependenci
 - [Scrapy](https://scrapy.org/)
 - [Microsoft Visual C++ Build Library](http://landinghub.visualstudio.com/visual-cpp-build-tools)
 - [tqdm](https://github.com/tqdm/tqdm)
-- [pywin32](https://sourceforge.net/projects/pywin32/). 
+- [pywin32](https://sourceforge.net/projects/pywin32/)
 
 ## How to run
 To run the scraper, creating a .CSV file in the working directory with the results, execute the following command anywhere inside the [boliga folder](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/tree/master/boliga):
