@@ -15,7 +15,7 @@ Running the script requires the installation of the following dependencies:
 
 ## How to run
 
-To run the script, simply open the file `assignment5.ipynb` inside of the Assignment5 folder in Jupyter Notebook.]
+To run the script, simply open the file `assignment5.ipynb` inside of the Assignment5 folder in Jupyter Notebook.
 
 [The direct link to the assignment file is here.](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/Assignment5/assignment5.ipynb)
 
