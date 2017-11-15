@@ -4,7 +4,7 @@ This is a repository for the assignments given in the Business Intelligence elec
 
 Assignment hand-ins displayed on this repository are group hand-ins for the group Disgusting Software, consisting of Emil Rosenius Pedersen, Theis Rye and Nicolai Vikkelsø Bonderup.
 
-# Assignment 6: Multivariate & Linear Regression
+# Assignment 5: Linear Regression
 
 ## Dependencies
 Running the script requires the installation of the following dependencies: 
@@ -15,9 +15,9 @@ Running the script requires the installation of the following dependencies:
 
 ## How to run
 
-To run the script, simply open the file `assignment6.ipynb` inside of the Assignment6 folder in Jupyter Notebook.
+To run the script, simply open the file `assignment5.ipynb` inside of the Assignment5 folder in Jupyter Notebook.
 
-[The direct link to the assignment file is here.](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/Assignment6/assignment6.ipynb)
+[The direct link to the assignment file is here.](https://github.com/NicolaiVBonderup/BusinessIntelligenceElective/blob/master/Assignment5/assignment5.ipynb)
 
 
 
